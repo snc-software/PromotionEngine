@@ -34,6 +34,7 @@ namespace PromotionEngine.BuisnessLogic.Promotions.BaseClasses
                                    promotionalQtyConfig.RemainingQuantity * basketLine.Product.Price;
         }
         
+        
         #endregion
     }
 }
