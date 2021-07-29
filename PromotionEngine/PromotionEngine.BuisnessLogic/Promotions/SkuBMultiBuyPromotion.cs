@@ -26,6 +26,7 @@ namespace PromotionEngine.BuisnessLogic.Promotions
         void ApplyPromotion(Basket basket, BasketLineModel basketLine)
         {
             ApplyMultiBuyPromotion(basketLine);
+            basketLine.PromotionApplied = true;
             basket.BasketDetail.PromotionsApplied.Add(Description);
         }
         
