@@ -33,7 +33,7 @@ namespace PromotionEngine.ServiceModel.Tests
         [Test]
         public void HandlingTheCalculateBasketTotalCommandSetsTheTotalPriceInTheBasketDetails()
         {
-            var expectedTotal = _updatedBasket.BasketLines.Sum(x => x.LineTotal);
+            var expectedTotal = _updatedBasket.BasketLines.Sum(GetBasketLineTotal);
             
             _requestHandler.Handle(_request, default);
             
@@ -79,8 +79,10 @@ namespace PromotionEngine.ServiceModel.Tests
             
             _updatedBasket = _request.Basket.CreateCopy();
             _updatedBasket.BasketDetail.PromotionsApplied.Add("3 A's for 130");
-            _updatedBasket.BasketLines.First(x => x.Product.Sku == 'A').LineTotal = 4 * 130;
-            _updatedBasket.BasketLines.First(x => x.Product.Sku == 'B').LineTotal = productsIndexedBySku['B'].Price;
+            var basketLineSkuA = _updatedBasket.BasketLines.First(x => x.Product.Sku == 'A');
+            basketLineSkuA.LineTotal = 4 * 130;
+            basketLineSkuA.PromotionApplied = true;
+            _updatedBasket.BasketLines.First(x => x.Product.Sku == 'B').LineTotal = 0;
         }
         
         void SetupMocks()
@@ -100,6 +102,16 @@ namespace PromotionEngine.ServiceModel.Tests
             _requestHandler = new CalculateBasketTotalCommandHandler(_mockPromotionApplier.Object);
         }
 
+        decimal GetBasketLineTotal(BasketLineModel basketLine)
+        {
+            if (basketLine.PromotionApplied)
+            {
+                return basketLine.LineTotal;
+            }
+
+            return basketLine.Quantity * basketLine.Product.Price;
+        }
+        
         #endregion
     }
 }

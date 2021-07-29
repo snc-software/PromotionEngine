@@ -18,5 +18,76 @@ namespace PromotionEngine.TestDataSet
 
         public static IDictionary<char, ProductModel> ProductsIndexedBySku =>
             Products.ToDictionary(k => k.Sku, v => v);
+
+        public static Basket Scenario1 => new()
+        {
+            BasketLines = new List<BasketLineModel>
+            {
+                new()
+                {
+                    Product = ProductsIndexedBySku['A'],
+                    Quantity = 1
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['B'],
+                    Quantity = 1
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['C'],
+                    Quantity = 1
+                }
+            }
+        };
+        
+        public static Basket Scenario2 => new()
+        {
+            BasketLines = new List<BasketLineModel>
+            {
+                new()
+                {
+                    Product = ProductsIndexedBySku['A'],
+                    Quantity = 5
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['B'],
+                    Quantity = 5
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['C'],
+                    Quantity = 1
+                }
+            }
+        };
+        
+        public static Basket Scenario3 => new()
+        {
+            BasketLines = new List<BasketLineModel>
+            {
+                new()
+                {
+                    Product = ProductsIndexedBySku['A'],
+                    Quantity = 3
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['B'],
+                    Quantity = 5
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['C'],
+                    Quantity = 1
+                },
+                new()
+                {
+                    Product = ProductsIndexedBySku['D'],
+                    Quantity = 1
+                }
+            }
+        };
     }
 }

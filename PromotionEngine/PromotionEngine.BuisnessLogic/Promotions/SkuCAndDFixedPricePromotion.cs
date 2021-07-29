@@ -41,6 +41,8 @@ namespace PromotionEngine.BuisnessLogic.Promotions
                 ApplyPromotionWhenMoreOfSkuDIsOrdered(basketLineForSkuC, basketLineForSkuD);
             }
 
+            basketLineForSkuC.PromotionApplied = true;
+            basketLineForSkuD.PromotionApplied = true;
             basket.BasketDetail.PromotionsApplied.Add(Description);
         }
         

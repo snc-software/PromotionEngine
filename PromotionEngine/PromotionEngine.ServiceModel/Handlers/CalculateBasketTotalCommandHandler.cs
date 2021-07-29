@@ -36,7 +36,7 @@ namespace PromotionEngine.ServiceModel.Handlers
         
         static decimal GetBasketLineTotal(BasketLineModel basketLine)
         {
-            if (basketLine.LineTotal > 0)
+            if (basketLine.PromotionApplied)
             {
                 return basketLine.LineTotal;
             }

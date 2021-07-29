@@ -13,5 +13,7 @@ namespace PromotionEngine.Domain
         public int Quantity { get; set; }
         
         public decimal LineTotal { get; set; }
+        
+        public bool PromotionApplied { get; set; }
     }
 }
