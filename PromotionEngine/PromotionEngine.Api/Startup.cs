@@ -1,16 +1,15 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using MediatR;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using PromotionEngine.BuisnessLogic.Promotions;
+using PromotionEngine.BuisnessLogic.Promotions.Interfaces;
+using PromotionEngine.BuisnessLogic.Services;
+using PromotionEngine.BuisnessLogic.Services.Interfaces;
+using PromotionEngine.ServiceModel.Requests;
 
 namespace PromotionEngine.Api
 {
@@ -26,6 +25,12 @@ namespace PromotionEngine.Api
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddScoped<IPromotion, SkuAMultiBuyPromotion>();
+            services.AddScoped<IPromotion, SkuBMultiBuyPromotion>();
+            services.AddScoped<IPromotion, SkuCAndDFixedPricePromotion>();
+            services.AddScoped<IPromotionApplier, PromotionApplier>();
+            services.AddMediatR(typeof(CalculateBasketTotalCommand));
+
             services.AddControllers();
             services.AddSwaggerGen(c =>
             {
